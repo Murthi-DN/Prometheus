@@ -1,0 +1,69 @@
+
+Prometheus
+
+Architecture:
+	
+	Server:
+		1. Retrieval - pulls metrics from targets
+			Pulls by HTTPS End Points /metrics from target machine
+		2. Storage - time series db to store metrics (Local Disk or can also be used our own)
+		3. HTTP server - accepts PromQL queries
+
+	Prometheus Web UI is used to as dashboard or grafan can be integrated
+
+
+	Targets:
+		Any part can be monitored
+
+	Metrics:
+		data of Targets
+
+		type and help
+
+		3 types:
+			1. counter - total number of the,
+			2. Gauge - Current value
+			3. Histogram - how long/big
+
+
+	Exporters:
+		Some targets may not have /metrics end point by defauly, so we use exporters script which fetches data from targets, converts into required format and exposes to /metrics - then prometheus will scrape it
+
+		Node exporters
+
+	Client Libraries:
+		We can even monitor our own codes by programs
+
+	Push Gateway:
+		For shortlived jobs, can be used pushgateways to avoid loads
+		Will be pulled by server
+
+	Alertmanager:
+		Can be Queried by PromQL and alert in email/slack...etc
+		When rule is met in prometheus.yml file, will be fired
+
+----------------------------------------------------------------------------------------------------
+
+How?
+	
+	prometheus.yml
+
+		Which?
+		when?
+
+
+		Ex:
+
+			global:
+				scrape_interval: 15s
+				evaluation_interval: 15s
+
+			rules:
+				#ex: to create alerts
+
+			scrape_config:
+				- job_name: prometheus
+					static_configs:
+						- targets: ['localhost:9090']
+
+----------------------------------------------------------------------------------------------------
